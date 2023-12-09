@@ -1,0 +1,93 @@
+1. Create a folder on Desktop named "streamlit" and create a file named "my_app.py" inside it.
+
+	open conda terminal or command terminal and cd to this "streamlit" folder
+
+2. Create virtual environment
+
+ a. method 1: from anaconda promt
+
+   to create environment:
+   conda create -n env_name 
+   conda env list
+
+   to activate environment:
+   conda activate env_name
+   source activate env_name (mac users)
+   (or       activate env_name)
+   (conda deactivate  -> for windows users)
+   (source deactivate -> for mac users)
+
+   to deactivate environment:
+   conda deactivate  (for windows users)
+   source deactivate (for mac users)
+
+   to delete/remove environment:
+   conda remove --name env-name --all (deletes/removes environment with all packages)
+       
+
+ b. method 2: from terminal (vscode, command promt, gitbash, mac terminal)
+
+   to create environment:
+   python -m venv env_name (windows)
+   python3 -m venv env_name (mac terminal)
+
+   to activate environment:
+   env_name/Scripts/activate (vscode)
+   source env_name/Scripts/activate (gitbash)
+   source env_name/bin/activate (mac terminal use "bin" instead of Scripts) 
+
+   to deactivate environment:
+   deactivate (for vscode or gitbash)
+
+   to delete/remove environment:
+   rm -rf env_name (for vscode, gitbash, mac users)
+
+
+   (python.exe -m pip install --upgrade pip) if required
+
+  
+ c. method 3 : from anaconda
+
+     create environment (by mouse)
+     no activation required
+     select environment we created and go Home page
+     install jupyter Notebook into the environment and go back Environments page
+     click on the green arrow near the environment name and select "Open with Jupyter Notebook"
+     upload your files here and open terminal
+     run the following code on terminal to see all environments
+     
+       conda install nb_conda_kernels
+
+     close terminal and Jupyter Notebook and then go environment and reopen Jupyter Notebook on it
+     open your ipynb file and seleck kernel
+     open app file and start to work with them
+  
+  
+3. add packages into venv
+
+  a. method 1: 
+
+   pip install streamlit==1.22.0
+   pip install scikit-learn==1.2.2
+
+or 
+ 
+   b. method 2:       
+   (if you already have requirements file)
+    
+    pip install -r requirements.txt
+
+"""(pip list) to see the packages
+   (pip freeze > requirements.txt) to create requirement file""""
+   
+   
+  to see Python version: python -V
+  to see packages we installed: pip list
+
+4. to run application file
+   streamlit run my_app.py
+
+
+
+
+
