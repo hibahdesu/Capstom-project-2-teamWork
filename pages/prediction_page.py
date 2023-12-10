@@ -148,10 +148,6 @@ my_dict = {
     "number_project": number_project,
     "average_montly_hours": average_montly_hours,
     "time_spend_company": time_spend_company
-#     "Work_accident": Work_accident,
-#     "promotion_last_5years": promotion_last_5years,
-#     "Departments": Departments,
-#     "salary": salary
 }
 
 
