@@ -1,0 +1,183 @@
+1.Push the following files to the github 
+
+   -saved model
+   -app.py file (streamlit commands)
+   -requirements.txt and other files
+
+2. Open your aws console
+
+3. Open EC2 Dashboard and Launch Instance (t2.micro )
+   
+   - enter EC2 name (ex: hillary-deneme1)
+   - aws linux machine
+   - t2.micro 
+   - Key pair login- create a new key pair- with default settings
+   - Name your key pem and download it (automatically downladed)
+   - store your key pair on your computer
+   - click "launch instance" button
+   - then you can see the "success message" about the instance was successfully launched
+   
+4. Security Group Settings from Network Settings
+
+   - after the instance get running state, click the check box in front of the new instance 
+   - click Security (On the right side of details from the bottom part)
+   - For Inbound rules click launch-wizard-5
+   - click "inbound rules" next to the details and click "Edit inbound rules"
+   - click "Add rule"
+
+5. Due to we want our app to be public we should set following configurations:
+
+   (Add Rule 2 times by clicking on Add Rule button)
+
+   a. Rule-1: Select "Custom TCP Rule" and set 8501 as port range and 0000 in source column (Anywhere IPv4)
+   b. Rule-2: Select "Custom TCP Rule" and set 8502 as port range and 0000 in source column (Anywhere IPv4)
+
+Together with the default rule (starting with SSH) there will be 3 rules.
+
+Then click "Save Rule"
+
+6. Connect to instance
+
+   * Method_1 (from local using git bash):
+
+      a. Open the githbash here where you save your pem file
+   
+      b. Conncect to instance using ssh commands
+	   (for mac users chmod 400 before connect to the EC2
+		ex: chmod 400 yourpemname.pem)
+
+         -click connect from aws console (ssh client)
+         -copy the example from SSH client and paste it to git bash
+          (add "sudo" to copied code if it not works)
+         -type yes and enter
+
+   * Method_2 (from AWS console):
+
+      a. click the checkbox in front of the instance name
+      b. then click on "Connect" button and see "Connect to instance" page
+      c. then click on "EC2 Instance Connect" and click on "Connect" button and follow the steps given below. 
+  
+7. to see the python versions on your ec2
+
+   type python3 ("exit()" to escape)
+
+(to insall python3 if there is no python3:)    
+
+   $ sudo yum install python3.9  (ec2 supports 3.9.16)
+	or
+   sudo amazon-linux-extras install python3.9.16
+   or 
+   sudo yum update && sudo yum install python3-pip
+
+
+8. to update python and install pip: 
+
+   sudo yum update -y 
+
+
+   if pip is not installed:
+   sudo yum update && sudo yum install python3-pip
+   (if pip doesn't work again visit this page: https://stackoverflow.com/questions/67218285/trying-to-install-pip3-in-amazon-linux-2)
+
+
+9. install git to ec2
+
+   $ sudo yum install git
+
+10. Copy app files into ec2
+
+   a. method 1 : use git clone method:
+
+      $ git clone https://github.com/hllry2022/MLD_Streamlit_Cloud.git
+
+  (before that you need to copy the htpps addres from your git account)
+
+   b. Method 2: if you are using vs code:
+
+      - Create folder in ec2 ("mkdir foldername" from terminal) 
+      - change directory to new folder
+         cd foldername
+      - Copy files from desktop into new folder
+
+   (rm -rf folder_name    --- to delete the folder with the files inside it)
+
+   c. method 3: 
+ 
+      if you cannot copy via vscode use secure copy method:
+
+      scp -i richard_new_3.pem requirements.txt ec2-user@52.71.254.30:/home/ec2-user/streamlit6
+                  
+      (your keypair should be at the same directory with target data)
+
+
+11. cd to folder downloaded from github (cd: change directory)
+
+    cd inclass_streamlit 
+  
+12. to create venv 
+
+    python3 -m venv env_name
+
+13. to activate venv (maybe pip required -----python -m pip3 install -U pip3-------)
+  
+    source env_name/bin/activate
+
+14. install required packages inside this folder(foldername) in ec2
+
+    pip3 install -r requirements.txt
+
+   or to install manually
+
+     - pip3 install scikit-learn==1.2.2
+       
+     - pip3 install streamlit==1.22.0  
+       
+
+   (pip3 list) to see the packages
+   (pip3 freeze > requirements.txt) to create requirements file
+
+
+15. to run app
+   streamlit run my_app.py
+
+   You can now view your Streamlit app in your browser.
+
+      Network URL: http://172.31.28.28:8501
+      External URL: http://18.18h8.133.122:8501
+
+
+   (When you close the git bash no matter the instance is working the app will stop. 
+   To prevent the app from this or in other words to let it work even you exit from the gitbash you should install tmux)
+
+16. to stop running app
+    "Control C"
+
+17. to install the tmux
+    (Make your Linux terminal more useful with tmux, a terminal multiplexer that allows you to run multiple Linux programs over a single connection.)
+
+   $ sudo yum install tmux
+
+18. to create a new tmux session
+
+   # tmux new -s st_instance
+
+19. run the app 
+
+   $ streamlit run my_app.py
+
+   Then it is ok. Even if you close the gitbash or what ever you are using for linux, the app will continue to work.
+
+   You can now view your Streamlit app in your browser.                                                                                     
+      Network URL: http://172.31.21.107:8501                                        
+      External URL: http://3.17.161.155:8501 
+
+20. to detach from tmux session
+   "control b" then remove your fingers from keyboard then "d"
+
+   (if you again want to attach: tmux attach -t st_instance)
+   (and if you want to stop your app : Control+c inside the tmux session)
+
+21. to kill the session
+   tmux kill-session -t st_instance
+
+
